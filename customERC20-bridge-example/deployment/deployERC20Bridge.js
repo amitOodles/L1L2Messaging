@@ -14,17 +14,16 @@ const networkIDzkEVM = 1;
 
 async function main() {
     let zkEVMProvider;
-    let zkEVMBridgeContractAddress;
+    let zkEVMBridgeContractAddressL1;
+    let zkEVMBridgeContractAddressL2;
 
     const networkName = process.env.HARDHAT_NETWORK;
+
     // Use mainnet bridge address
-    if (networkName === 'mainnet') {
-        zkEVMBridgeContractAddress = mainnetBridgeAddress;
-        zkEVMProvider = new ethers.providers.JsonRpcProvider('https://zkevm-rpc.com');
-    } else if (networkName === 'goerli') {
-        // Use testnet bridge address
-        zkEVMBridgeContractAddress = testnetBridgeAddress;
-        zkEVMProvider = new ethers.providers.JsonRpcProvider('https://rpc.public.zkevm-test.net');
+    if (networkName === 'sepolia') {
+        zkEVMBridgeContractAddressL1 = "0x60C171F5Cd2d698Cbb270b6046e1661b65862d24";
+        zkEVMBridgeContractAddressL2 = "0xf8a6815D12F4ba6a8Eb9C92a13CBAe1fBEfa4ee5";
+        zkEVMProvider = new ethers.providers.JsonRpcProvider('https://rpc.moduluszk.io');
     } else {
         throw new Error('Network not supported');
     }
@@ -72,7 +71,7 @@ async function main() {
     // deploy mainnet erc20 bridge
     const ERC20BridgeMainnetFactory = await ethers.getContractFactory('ERC20BridgeNativeChain', deployer);
     const ERC20BridgeMainnet = await ERC20BridgeMainnetFactory.deploy(
-        zkEVMBridgeContractAddress,
+        zkEVMBridgeContractAddressL1,
         predictERC20BridgeZkEVM,
         networkIDzkEVM,
         erc20MainnetToken.address,
@@ -83,7 +82,7 @@ async function main() {
     // deploy zkEVM erc20 bridge
     const ERC20BridgezkEVMFactory = await ethers.getContractFactory('ERC20BridgeNonNativeChain', deployerZkEVM);
     const ERC20BridgezkEVM = await ERC20BridgezkEVMFactory.deploy(
-        zkEVMBridgeContractAddress,
+        zkEVMBridgeContractAddressL2,
         ERC20BridgeMainnet.address,
         networkIDMainnet,
         predictErc20zkEVMToken,
@@ -120,6 +119,10 @@ async function main() {
 
     fs.writeFileSync(pathOutputJson, JSON.stringify(outputJson, null, 1));
 }
+
+const networkName = process.env.HARDHAT_NETWORK;
+console.log("NETWORKKKKKKKKKKKKKKK", networkName);
+console.log("ENVVVVVVVVVVV", process.env);
 
 main().catch((e) => {
     console.error(e);

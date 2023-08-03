@@ -24,17 +24,18 @@ async function main() {
     }
 
     const networkName = process.env.HARDHAT_NETWORK;
-    let destinationNetwork; let
-        ERC20BridgeContractAddress; let erc20TokenAddress;
+    // let destinationNetwork; 
+    let ERC20BridgeContractAddress;
+    let erc20TokenAddress;
 
     if (networkName === 'polygonZKEVMTestnet' || networkName === 'polygonZKEVMMainnet') {
-        destinationNetwork = networkIDMainnet;
+        // destinationNetwork = networkIDMainnet;
         erc20TokenAddress = deploymentERC20Bridge.erc20zkEVMToken;
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgezkEVM;
     }
 
-    if (networkName === 'mainnet' || networkName === 'goerli') {
-        destinationNetwork = networkIDRollup;
+    if (networkName === 'mainnet' || networkName === 'sepolia') {
+        // destinationNetwork = networkIDRollup;
         erc20TokenAddress = deploymentERC20Bridge.erc20MainnetToken;
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgeMainnet;
     }

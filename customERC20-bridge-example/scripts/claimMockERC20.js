@@ -5,8 +5,8 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const { ethers } = require('hardhat');
 
-const mainnetBridgeAddress = '0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe';
-const testnetBridgeAddress = '0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7';
+// const mainnetBridgeAddress = '0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe';
+// const testnetBridgeAddress = '0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7';
 
 const mekrleProofString = '/merkle-proof';
 const getClaimsFromAcc = '/bridges/';
@@ -32,13 +32,16 @@ async function main() {
     const networkName = process.env.HARDHAT_NETWORK;
 
     // Use mainnet bridge address
-    if (networkName === 'polygonZKEVMMainnet' || networkName === 'mainnet') {
-        zkEVMBridgeContractAddress = mainnetBridgeAddress;
-        baseURL = 'https://bridge-api.zkevm-rpc.com';
-    } else if (networkName === 'polygonZKEVMTestnet' || networkName === 'goerli') {
-        // Use testnet bridge address
-        zkEVMBridgeContractAddress = testnetBridgeAddress;
-        baseURL = 'https://bridge-api.public.zkevm-test.net';
+    // if (networkName === 'polygonZKEVMMainnet' || networkName === 'mainnet') {
+        // zkEVMBridgeContractAddress = mainnetBridgeAddress;
+        // baseURL = 'https://bridge-api.zkevm-rpc.com';
+    // } else if (networkName === 'polygonZKEVMTestnet' || networkName === 'goerli') {
+    if(networkName === "sepolia") {
+        zkEVMBridgeContractAddress = "0x60C171F5Cd2d698Cbb270b6046e1661b65862d24";
+        baseURL = 'https://bridgeapi.moduluszk.io';
+    } else if(networkName === "polygonZKEVMTestnet") {
+        zkEVMBridgeContractAddress = "0xf8a6815D12F4ba6a8Eb9C92a13CBAe1fBEfa4ee5";
+        baseURL = 'https://bridgeapi.moduluszk.io';
     }
 
     const axios = require('axios').create({
@@ -53,12 +56,14 @@ async function main() {
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgezkEVM;
     }
 
-    if (networkName === 'mainnet' || networkName === 'goerli') {
+    if (networkName === 'mainnet' || networkName === 'sepolia') {
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgeMainnet;
     }
 
     const depositAxions = await axios.get(getClaimsFromAcc + ERC20BridgeContractAddress, { params: { limit: 100, offset: 0 } });
     const depositsArray = depositAxions.data.deposits;
+
+    console.log("Deposit api response ", networkName, depositsArray);
 
     if (depositsArray.length === 0) {
         console.log('Not deposits yet!');

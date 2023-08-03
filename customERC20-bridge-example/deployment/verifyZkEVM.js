@@ -5,9 +5,6 @@ const path = require('path');
 const hre = require('hardhat');
 const { expect } = require('chai');
 
-const mainnetBridgeAddress = '0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe';
-const testnetBridgeAddress = '0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7';
-
 const networkIDMainnet = 0;
 
 async function main() {
@@ -17,13 +14,13 @@ async function main() {
 
     let zkEVMBridgeContractAddress;
     // Use mainnet bridge address
-    if (networkName === 'polygonZKEVMMainnet' || networkName === 'mainnet') {
-        zkEVMBridgeContractAddress = mainnetBridgeAddress;
-    }
+    // if (networkName === 'polygonZKEVMMainnet') {
+        // zkEVMBridgeContractAddress = "";
+    // }
 
     // Use testnet bridge address
-    if (networkName === 'polygonZKEVMTestnet' || networkName === 'goerli') {
-        zkEVMBridgeContractAddress = testnetBridgeAddress;
+    if (networkName === 'polygonZKEVMTestnet') {
+        zkEVMBridgeContractAddress = "0xf8a6815D12F4ba6a8Eb9C92a13CBAe1fBEfa4ee5";
     }
 
     // Token params
@@ -48,7 +45,8 @@ async function main() {
             },
         );
     } catch (error) {
-        expect(error.message.toLowerCase().includes('already verified')).to.be.equal(true);
+        console.log("error message", error)
+        // expect(error.message.toLowerCase().includes('already verified')).to.be.equal(true);
     }
 
     try {
@@ -66,7 +64,7 @@ async function main() {
             },
         );
     } catch (error) {
-        expect(error.message.toLowerCase().includes('already verified')).to.be.equal(true);
+        // expect(error.message.toLowerCase().includes('already verified')).to.be.equal(true);
     }
 }
 

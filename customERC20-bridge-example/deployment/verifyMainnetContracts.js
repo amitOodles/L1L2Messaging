@@ -5,10 +5,6 @@ const path = require('path');
 const hre = require('hardhat');
 const { expect } = require('chai');
 
-const mainnetBridgeAddress = '0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe';
-const testnetBridgeAddress = '0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7';
-
-const networkIDMainnet = 0;
 const networkIDzkEVM = 1;
 
 async function main() {
@@ -18,13 +14,13 @@ async function main() {
 
     let zkEVMBridgeContractAddress;
     // Use mainnet bridge address
-    if (networkName === 'polygonZKEVMMainnet' || networkName === 'mainnet') {
-        zkEVMBridgeContractAddress = mainnetBridgeAddress;
-    }
+    // if (networkName === 'mainnet') {
+        // zkEVMBridgeContractAddress = mainnetBridgeAddress;
+    // }
 
     // Use testnet bridge address
-    if (networkName === 'polygonZKEVMTestnet' || networkName === 'goerli') {
-        zkEVMBridgeContractAddress = testnetBridgeAddress;
+    if (networkName === 'sepolia') {
+        zkEVMBridgeContractAddress = "0x60C171F5Cd2d698Cbb270b6046e1661b65862d24";
     }
 
     // Token params
