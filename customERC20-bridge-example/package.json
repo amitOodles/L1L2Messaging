@@ -47,6 +47,7 @@
   },
   "scripts": {
     "deploy:erc20Bridge:sepolia": "npx hardhat run deployment/deployERC20Bridge.js --network sepolia",
+    "deploy:erc20Bridge:modulus": "npx hardhat run deployment/deployERC20Bridge.js --network modulus",
     "deploy:erc20Bridge:mainnet": "npx hardhat run deployment/deployERC20Bridge.js --network mainnet",
     "verify:erc20Bridge:sepolia": "npx hardhat run deployment/verifyMainnetContracts.js --network sepolia",
     "verify:erc20Bridge:mainnet": "npx hardhat run deployment/verifyMainnetContracts.js --network mainnet",

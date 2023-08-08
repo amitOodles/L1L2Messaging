@@ -124,7 +124,30 @@ const networkName = process.env.HARDHAT_NETWORK;
 console.log("NETWORKKKKKKKKKKKKKKK", networkName);
 console.log("ENVVVVVVVVVVV", process.env);
 
-main().catch((e) => {
-    console.error(e);
-    process.exit(1);
-});
+async function deployStone(){
+    try{
+        let zkEVMProvider = new ethers.providers.JsonRpcProvider('https://rpc.moduluszk.io');
+        let deployerZkEVM;
+        if (process.env.PVTKEY) {
+            deployerZkEVM = new ethers.Wallet(process.env.PVTKEY, zkEVMProvider);
+            console.log('Using pvtKey deployer with address: ', deployerZkEVM.address);
+        }
+
+        // deploy mainnet token
+        const StTokenFactory = await ethers.getContractFactory('Stest', deployerZkEVM);
+        const StToken = await StTokenFactory.deploy(
+            "0x171d2Ef8fF300039e8B1b84369E97061AE478df6"
+        );
+        await StToken.deployed();
+        console.log('StToken deployed', StToken.address);
+    } catch(ex) {
+        console.log("Error deploying contract", ex);
+    }
+}
+
+deployStone();
+
+// main().catch((e) => {
+    // console.error(e);
+    // process.exit(1);
+// });
