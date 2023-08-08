@@ -2,26 +2,26 @@
 
 pragma solidity 0.8.17;
 
-import "./PolygonBridgeLib.sol";
+import "./ModulusBridgeLib.sol";
 
 /**
  * This contract contains the common logic to interact with the message layer of the bridge
  * to build a custom erc20 bridge. Is needed to deploy 1 contract on each layer that inherits
  * this library.
  */
-abstract contract PolygonERC20BridgeLib is PolygonBridgeLib {
+abstract contract ModulusERC20BridgeLib is ModulusBridgeLib {
     /**
-     * @param _polygonZkEVMBridge Polygon zkevm bridge address
+     * @param _modulusZkEVMBridge Modulus zkevm bridge address
      * @param _counterpartContract Couterpart contract
      * @param _counterpartNetwork Couterpart network
      */
     constructor(
-        IPolygonZkEVMBridge _polygonZkEVMBridge,
+        IModulusZkEVMBridge _modulusZkEVMBridge,
         address _counterpartContract,
         uint32 _counterpartNetwork
     )
-        PolygonBridgeLib(
-            _polygonZkEVMBridge,
+        ModulusBridgeLib(
+            _modulusZkEVMBridge,
             _counterpartContract,
             _counterpartNetwork
         )

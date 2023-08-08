@@ -2,33 +2,33 @@
 
 pragma solidity 0.8.17;
 
-import "./lib/PolygonERC20BridgeLib.sol";
+import "./lib/ModulusERC20BridgeLib.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /**
- * ERC20BridgeNativeChain is an example contract to use the message layer of the PolygonZkEVMBridge to bridge custom ERC20
+ * ERC20BridgeNativeChain is an example contract to use the message layer of the ModulusZkEVMBridge to bridge custom ERC20
  * This contract will be deployed on the native erc20 network (usually will be mainnet)
  */
-contract ERC20BridgeNativeChain is PolygonERC20BridgeLib {
+contract ERC20BridgeNativeChain is ModulusERC20BridgeLib {
     using SafeERC20 for IERC20;
 
     // Token address
     IERC20 public immutable token;
 
     /**
-     * @param _polygonZkEVMBridge Polygon zkevm bridge address
+     * @param _modulusZkEVMBridge Modulus zkevm bridge address
      * @param _counterpartContract Couterpart contract
      * @param _counterpartNetwork Couterpart network
      * @param _token Token address
      */
     constructor(
-        IPolygonZkEVMBridge _polygonZkEVMBridge,
+        IModulusZkEVMBridge _modulusZkEVMBridge,
         address _counterpartContract,
         uint32 _counterpartNetwork,
         IERC20 _token
     )
-        PolygonERC20BridgeLib(
-            _polygonZkEVMBridge,
+        ModulusERC20BridgeLib(
+            _modulusZkEVMBridge,
             _counterpartContract,
             _counterpartNetwork
         )

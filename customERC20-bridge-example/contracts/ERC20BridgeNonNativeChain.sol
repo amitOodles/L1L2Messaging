@@ -2,31 +2,31 @@
 
 pragma solidity 0.8.17;
 
-import "./lib/PolygonERC20BridgeLib.sol";
+import "./lib/ModulusERC20BridgeLib.sol";
 import "./interfaces/IERC20Wrapped.sol";
 
 /**
- * ERC20BridgeNonNativeChain is an example contract to use the message layer of the PolygonZkEVMBridge to bridge custom ERC20
+ * ERC20BridgeNonNativeChain is an example contract to use the message layer of the ModulusZkEVMBridge to bridge custom ERC20
  * This contract will be deployed on the non-native erc20 network (usually will be zk-EVM)
  */
-contract ERC20BridgeNonNativeChain is PolygonERC20BridgeLib {
+contract ERC20BridgeNonNativeChain is ModulusERC20BridgeLib {
     // Token address
     IERC20Wrapped public immutable token;
 
     /**
-     * @param _polygonZkEVMBridge Polygon zkevm bridge address
+     * @param _modulusZkEVMBridge Modulus zkevm bridge address
      * @param _counterpartContract Couterpart contract
      * @param _counterpartNetwork Couterpart network
      * @param _token Token address
      */
     constructor(
-        IPolygonZkEVMBridge _polygonZkEVMBridge,
+        IModulusZkEVMBridge _modulusZkEVMBridge,
         address _counterpartContract,
         uint32 _counterpartNetwork,
         IERC20Wrapped _token
     )
-        PolygonERC20BridgeLib(
-            _polygonZkEVMBridge,
+        ModulusERC20BridgeLib(
+            _modulusZkEVMBridge,
             _counterpartContract,
             _counterpartNetwork
         )

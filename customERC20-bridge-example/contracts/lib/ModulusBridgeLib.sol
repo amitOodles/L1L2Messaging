@@ -2,18 +2,18 @@
 
 pragma solidity 0.8.17;
 
-import "../polygonZKEVMContracts/interfaces/IBasePolygonZkEVMGlobalExitRoot.sol";
-import "../polygonZKEVMContracts/interfaces/IBridgeMessageReceiver.sol";
-import "../polygonZKEVMContracts/interfaces/IPolygonZkEVMBridge.sol";
+import "../modulusZKEVMContracts/interfaces/IBaseModulusZkEVMGlobalExitRoot.sol";
+import "../modulusZKEVMContracts/interfaces/IBridgeMessageReceiver.sol";
+import "../modulusZKEVMContracts/interfaces/IModulusZkEVMBridge.sol";
 
 /**
  * This contract contains the logic to use the message layer of the bridge to send and receive messages
  * to a counterpart contract deployed on another network.
  * Is needed to deploy 1 contract on each layer that inherits this library.
  */
-abstract contract PolygonBridgeLib {
+abstract contract ModulusBridgeLib {
     // Zk-EVM Bridge address
-    IPolygonZkEVMBridge public immutable polygonZkEVMBridge;
+    IModulusZkEVMBridge public immutable modulusZkEVMBridge;
 
     // Counterpart contract that will be deployed on the other network
     // Both contract will send messages to each other
@@ -23,16 +23,16 @@ abstract contract PolygonBridgeLib {
     uint32 public immutable counterpartNetwork;
 
     /**
-     * @param _polygonZkEVMBridge Polygon zkevm bridge address
+     * @param _modulusZkEVMBridge Modulus zkevm bridge address
      * @param _counterpartContract Couterpart contract
      * @param _counterpartNetwork Couterpart network
      */
     constructor(
-        IPolygonZkEVMBridge _polygonZkEVMBridge,
+        IModulusZkEVMBridge _modulusZkEVMBridge,
         address _counterpartContract,
         uint32 _counterpartNetwork
     ) {
-        polygonZkEVMBridge = _polygonZkEVMBridge;
+        modulusZkEVMBridge = _modulusZkEVMBridge;
         counterpartContract = _counterpartContract;
         counterpartNetwork = _counterpartNetwork;
     }
@@ -46,7 +46,7 @@ abstract contract PolygonBridgeLib {
         bytes memory messageData,
         bool forceUpdateGlobalExitRoot
     ) internal virtual {
-        polygonZkEVMBridge.bridgeMessage(
+        modulusZkEVMBridge.bridgeMessage(
             counterpartNetwork,
             counterpartContract,
             forceUpdateGlobalExitRoot,
@@ -67,17 +67,17 @@ abstract contract PolygonBridgeLib {
     ) external payable {
         // Can only be called by the bridge
         require(
-            msg.sender == address(polygonZkEVMBridge),
-            "TokenWrapped::PolygonBridgeLib: Not PolygonZkEVMBridge"
+            msg.sender == address(modulusZkEVMBridge),
+            "TokenWrapped::ModulusBridgeLib: Not ModulusZkEVMBridge"
         );
 
         require(
             counterpartContract == originAddress,
-            "TokenWrapped::PolygonBridgeLib: Not counterpart contract"
+            "TokenWrapped::ModulusBridgeLib: Not counterpart contract"
         );
         require(
             counterpartNetwork == originNetwork,
-            "TokenWrapped::PolygonBridgeLib: Not counterpart network"
+            "TokenWrapped::ModulusBridgeLib: Not counterpart network"
         );
 
         _onMessageReceived(data);

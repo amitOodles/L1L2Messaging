@@ -6,7 +6,7 @@ import "./CustomERC20Mainnet.sol";
 import "../interfaces/IERC20Wrapped.sol";
 
 contract CustomERC20Wrapped is CustomERC20Mainnet, IERC20Wrapped {
-    // PolygonZkEVM Bridge address
+    // ModulusZkEVM Bridge address
     address public immutable ERC20bridgeAddress;
 
     // Notice that can inherit any erc20 contract with ANY custom logic
@@ -23,7 +23,7 @@ contract CustomERC20Wrapped is CustomERC20Mainnet, IERC20Wrapped {
     modifier onlyBridge() {
         require(
             msg.sender == ERC20bridgeAddress,
-            "CustomERC20Wrapped::onlyBridge: Not PolygonZkEVMBridge"
+            "CustomERC20Wrapped::onlyBridge: Not ModulusZkEVMBridge"
         );
         _;
     }
