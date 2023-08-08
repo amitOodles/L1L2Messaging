@@ -13,12 +13,6 @@ async function main() {
     const deployOutputParameters = require(pathDeployOutputParameters);
 
     let zkEVMBridgeContractAddress;
-    // Use mainnet bridge address
-    // if (networkName === 'mainnet') {
-        // zkEVMBridgeContractAddress = mainnetBridgeAddress;
-    // }
-
-    // Use testnet bridge address
     if (networkName === 'sepolia') {
         zkEVMBridgeContractAddress = "0x60C171F5Cd2d698Cbb270b6046e1661b65862d24";
     }

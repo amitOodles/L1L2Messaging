@@ -129,17 +129,8 @@ module.exports = {
         count: 20,
       },
     },
-    polygonZKEVMTestnet: {
+    modulus: {
       url: "https://rpc.moduluszk.io",
-      accounts: {
-        mnemonic: process.env.MNEMONIC || DEFAULT_MNEMONIC,
-        path: "m/44'/60'/0'/0",
-        initialIndex: 0,
-        count: 20,
-      },
-    },
-    polygonZKEVMMainnet: {
-      url: "https://zkevm-rpc.com",
       accounts: {
         mnemonic: process.env.MNEMONIC || DEFAULT_MNEMONIC,
         path: "m/44'/60'/0'/0",
@@ -155,28 +146,18 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      polygonZKEVMTestnet: `${process.env.ETHERSCAN_ZKEVM_API_KEY}`,
-      polygonZKEVMMainnet: `${process.env.ETHERSCAN_ZKEVM_API_KEY}`,
+      modulus: `${process.env.ETHERSCAN_ZKEVM_API_KEY}`,
       goerli: `${process.env.ETHERSCAN_API_KEY}`,
       sepolia: `${process.env.ETHERSCAN_API_KEY}`,
       mainnet: `${process.env.ETHERSCAN_API_KEY}`
     },
     customChains: [
       {
-        network: "polygonZKEVMMainnet",
-        chainId: 1101,
-        urls: {
-          apiURL: "https://api-zkevm.polygonscan.com/api",
-          browserURL: "https://zkevm.polygonscan.com/"
-        }
-      },
-      {
-        network: "polygonZKEVMTestnet",
+        network: "modulus",
         chainId: 6666,
         urls: {
-          // apiURL: "https://api-testnet-zkevm.polygonscan.com/api",
-          // browserURL: "https://testnet-zkevm.polygonscan.com/"
-          apiURL: "https://eye.moduluszk.io/api"
+          apiURL: "https://eye.moduluszk.io/api",
+          browserURL: "https://eye.moduluszk.io"
         }
       }
     ]

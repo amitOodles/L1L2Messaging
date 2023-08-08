@@ -4,9 +4,6 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const { ethers } = require('hardhat');
 
-const networkIDMainnet = 0;
-const networkIDRollup = 1;
-
 const pathdeployeERC20Bridge = path.join(__dirname, '../deployment/ERC20Bridge_output.json');
 const deploymentERC20Bridge = require(pathdeployeERC20Bridge);
 
@@ -24,18 +21,15 @@ async function main() {
     }
 
     const networkName = process.env.HARDHAT_NETWORK;
-    // let destinationNetwork; 
     let ERC20BridgeContractAddress;
     let erc20TokenAddress;
 
-    if (networkName === 'polygonZKEVMTestnet' || networkName === 'polygonZKEVMMainnet') {
-        // destinationNetwork = networkIDMainnet;
+    if (networkName === 'modulus') {
         erc20TokenAddress = deploymentERC20Bridge.erc20zkEVMToken;
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgezkEVM;
     }
 
     if (networkName === 'mainnet' || networkName === 'sepolia') {
-        // destinationNetwork = networkIDRollup;
         erc20TokenAddress = deploymentERC20Bridge.erc20MainnetToken;
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgeMainnet;
     }
@@ -51,11 +45,13 @@ async function main() {
         erc20TokenAddress,
     );
 
-    const tokenAmount = ethers.utils.parseEther('1');
+    const tokenAmount = ethers.utils.parseEther('2');
     const destinationAddress = deployer.address;
 
-    await (await tokenContract.approve(ERC20BridgeContractAddress, tokenAmount)).wait();
-    console.log('approved tokens');
+    if (networkName === 'mainnet' || networkName === 'sepolia') {
+        await (await tokenContract.approve(ERC20BridgeContractAddress, tokenAmount)).wait();
+        console.log('approved tokens');
+    }
 
     const tx = await erc20BridgeContract.bridgeToken(
         destinationAddress,

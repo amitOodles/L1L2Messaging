@@ -47,6 +47,7 @@ async function main() {
     const symbol = 'CTN';
     const initialAccount = deployer.address;
     const initialBalance = ethers.utils.parseEther('1000000000');
+    const initialBalanceL2Token = ethers.utils.parseEther('0');
 
     // deploy mainnet token
     const erc20MainnetTokenFactory = await ethers.getContractFactory('CustomERC20Mainnet', deployer);
@@ -96,7 +97,7 @@ async function main() {
         name,
         symbol,
         initialAccount,
-        initialBalance,
+        initialBalanceL2Token,
         predictERC20BridgeZkEVM,
     );
     await erc20zkEVMToken.deployed();
@@ -119,10 +120,6 @@ async function main() {
 
     fs.writeFileSync(pathOutputJson, JSON.stringify(outputJson, null, 1));
 }
-
-const networkName = process.env.HARDHAT_NETWORK;
-console.log("NETWORKKKKKKKKKKKKKKK", networkName);
-console.log("ENVVVVVVVVVVV", process.env);
 
 main().catch((e) => {
     console.error(e);

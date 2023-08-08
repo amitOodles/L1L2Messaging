@@ -13,13 +13,7 @@ async function main() {
     const deployOutputParameters = require(pathDeployOutputParameters);
 
     let zkEVMBridgeContractAddress;
-    // Use mainnet bridge address
-    // if (networkName === 'polygonZKEVMMainnet') {
-        // zkEVMBridgeContractAddress = "";
-    // }
-
-    // Use testnet bridge address
-    if (networkName === 'polygonZKEVMTestnet') {
+    if (networkName === 'modulus') {
         zkEVMBridgeContractAddress = "0xf8a6815D12F4ba6a8Eb9C92a13CBAe1fBEfa4ee5";
     }
 

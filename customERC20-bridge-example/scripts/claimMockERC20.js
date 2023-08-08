@@ -31,15 +31,10 @@ async function main() {
     let baseURL;
     const networkName = process.env.HARDHAT_NETWORK;
 
-    // Use mainnet bridge address
-    // if (networkName === 'polygonZKEVMMainnet' || networkName === 'mainnet') {
-        // zkEVMBridgeContractAddress = mainnetBridgeAddress;
-        // baseURL = 'https://bridge-api.zkevm-rpc.com';
-    // } else if (networkName === 'polygonZKEVMTestnet' || networkName === 'goerli') {
     if(networkName === "sepolia") {
         zkEVMBridgeContractAddress = "0x60C171F5Cd2d698Cbb270b6046e1661b65862d24";
         baseURL = 'https://bridgeapi.moduluszk.io';
-    } else if(networkName === "polygonZKEVMTestnet") {
+    } else if(networkName === "modulus") {
         zkEVMBridgeContractAddress = "0xf8a6815D12F4ba6a8Eb9C92a13CBAe1fBEfa4ee5";
         baseURL = 'https://bridgeapi.moduluszk.io';
     }
@@ -48,11 +43,11 @@ async function main() {
         baseURL,
     });
 
-    const bridgeFactoryZkeEVm = await ethers.getContractFactory('PolygonZkEVMBridge', deployer);
+    const bridgeFactoryZkeEVm = await ethers.getContractFactory('ModulusZkEVMBridge', deployer);
     const bridgeContractZkeVM = bridgeFactoryZkeEVm.attach(zkEVMBridgeContractAddress);
 
     let ERC20BridgeContractAddress;
-    if (networkName === 'polygonZKEVMTestnet' || networkName === 'polygonZKEVMMainnet') {
+    if (networkName === 'modulus') {
         ERC20BridgeContractAddress = deploymentERC20Bridge.ERC20BridgezkEVM;
     }
 
