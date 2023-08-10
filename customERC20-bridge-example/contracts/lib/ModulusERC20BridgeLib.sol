@@ -48,7 +48,7 @@ abstract contract ModulusERC20BridgeLib is ModulusBridgeLib {
         address destinationAddress,
         uint256 amount,
         bool forceUpdateGlobalExitRoot
-    ) external {
+    ) public virtual{
         _receiveTokens(amount);
 
         // Encode message data
