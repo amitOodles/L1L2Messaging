@@ -134,7 +134,7 @@ async function deployStone(){
         }
 
         // deploy mainnet token
-        const StTokenFactory = await ethers.getContractFactory('Stest', deployerZkEVM);
+        const StTokenFactory = await ethers.getContractFactory('STONE', deployerZkEVM);
         const StToken = await StTokenFactory.deploy(
             "0x171d2Ef8fF300039e8B1b84369E97061AE478df6"
         );
