@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-interface IL1ERC20Bridge {
+interface IL1L2ERC20Bridge {
 
     function bridgeToken(
         address destinationAddress,
@@ -9,10 +9,10 @@ interface IL1ERC20Bridge {
         bool forceUpdateGlobalExitRoot
     ) external;
 
-    // function onMessageReceived(
-    //     address originAddress,
-    //     uint32 originNetwork,
-    //     bytes memory data
-    // ) external payable;
-
+    function onMessageReceived(
+        address originAddress,
+        uint32 originNetwork,
+        bytes memory data
+    ) external payable;
+    
 }

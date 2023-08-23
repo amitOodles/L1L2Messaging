@@ -64,7 +64,7 @@ abstract contract ModulusBridgeLib {
         address originAddress,
         uint32 originNetwork,
         bytes memory data
-    ) external payable {
+    ) public virtual payable {
         // Can only be called by the bridge
         require(
             msg.sender == address(modulusZkEVMBridge),

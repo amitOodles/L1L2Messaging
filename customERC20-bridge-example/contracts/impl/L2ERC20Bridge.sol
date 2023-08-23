@@ -3,9 +3,9 @@ pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "../interfaces/IL1L2ERC20Bridge.sol";
-import "../ERC20BridgeNativeChain.sol";
+import "../ERC20BridgeNonNativeChain.sol";
 
-contract L1ERC20Bridge is IERC165, IL1L2ERC20Bridge, ERC20BridgeNativeChain {
+contract L2ERC20Bridge is IERC165, IL1L2ERC20Bridge, ERC20BridgeNonNativeChain {
 
     mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -13,8 +13,8 @@ contract L1ERC20Bridge is IERC165, IL1L2ERC20Bridge, ERC20BridgeNativeChain {
         IModulusZkEVMBridge _modulusZkEVMBridge,
         address _counterpartContract,
         uint32 _counterpartNetwork,
-        IERC20 _token
-    ) ERC20BridgeNativeChain(_modulusZkEVMBridge, _counterpartContract, _counterpartNetwork, _token){
+        IERC20Wrapped _token
+    ) ERC20BridgeNonNativeChain(_modulusZkEVMBridge, _counterpartContract, _counterpartNetwork, _token){
         supportedInterfaces[IERC165.supportsInterface.selector] = true;
         supportedInterfaces[IL1L2ERC20Bridge.bridgeToken.selector ^ IL1L2ERC20Bridge.onMessageReceived.selector] = true;
     }
