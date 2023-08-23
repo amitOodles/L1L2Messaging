@@ -65,6 +65,7 @@
     "claim:MockERC20:sepolia": "npx hardhat run scripts/claimMockERC20.js --network sepolia",
     "claim:MockERC20:mainnet": "npx hardhat run scripts/claimMockERC20.js --network mainnet",
     "claim:MockERC20:polygonZKEVMTestnet": "npx hardhat run scripts/claimMockERC20.js --network polygonZKEVMTestnet",
-    "claim:MockERC20:polygonZKEVMMainnet": "npx hardhat run scripts/claimMockERC20.js --network polygonZKEVMMainnet"
+    "claim:MockERC20:polygonZKEVMMainnet": "npx hardhat run scripts/claimMockERC20.js --network polygonZKEVMMainnet",
+    "deploy:DDF:modulusDevnet": "npx hardhat run scripts/user/deployFactory.js --network modulusDevnet"
   }
 }

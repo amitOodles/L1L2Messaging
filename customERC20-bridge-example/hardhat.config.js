@@ -99,6 +99,15 @@ module.exports = {
       initialIndex: 0,
       count: 20,
     },
+    modulusDevnet: {
+      url: `http://34.243.78.118:8123`,
+      chainId: 6665,
+      gasPrice: 8000000000,
+      accounts: [process.env.PVTKEY],
+      path: "m/44'/60'/0'/0",
+      initialIndex: 0,
+      count: 20,
+    },
     ethereum: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY_ETHEREUM}`,
       accounts: [process.env.PVTKEY],
@@ -114,7 +123,8 @@ module.exports = {
     //apiKey: process.env.BSCSCAN_API_KEY
     //apiKey: process.env.POLYGONSCAN_API_KEY,
     apiKey: {
-      modulus: "random"
+      modulus: "random",
+      modulusDevnet : "random"
     },
     customChains: [
       {
@@ -123,6 +133,14 @@ module.exports = {
         urls: {
           apiURL: "https://eye.moduluszk.io/api",
           browserURL: "https://eye.moduluszk.io"
+        }
+      },
+      {
+        network: "modulusDevnet",
+        chainId: 6665,
+        urls: {
+          apiURL: "https://5262-103-215-158-90.ngrok-free.app/api-docs",
+          browserURL: "https://5262-103-215-158-90.ngrok-free.app"
         }
       }
     ]

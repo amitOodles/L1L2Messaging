@@ -72,7 +72,8 @@ async function main() {
   let confirmations = [];
   let implAddr = {};
 
-  const factoryAddr = "0xb47555EA22FA6E9C171D2A8B91b67f7294379f59";
+  // const factoryAddr = "0xb47555EA22FA6E9C171D2A8B91b67f7294379f59";
+  const factoryAddr = "0xE8ea0b033EC653677Fa860398b58b742A68196F9";
   const saltHex = ethers.utils.id("1992");//main deployed with 1992
 
   //const factory = await ethers.getContractAt('DeterministicDeployFactory', factoryAddr);
